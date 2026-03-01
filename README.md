@@ -1,59 +1,52 @@
-# DashboardApp
+# Inventory Management Console Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.20.
+This project is a real-time inventory dashboard built with Angular 19 and Supabase. It was designed to solve the specific challenge of managing high-volume product data with instant feedback for support teams.
 
-## Development server
+Core Technical Architecture
+Framework: Angular 19 using the new Standalone Component patterns and app.config.ts provider-based architecture.
 
-To start a local development server, run:
+Database & Auth: Supabase (PostgreSQL) for real-time data persistence and rapid API generation.
 
-```bash
-ng serve
-```
+UI Suite: PrimeNG 18+ utilizing the Aura Design System and CSS-in-JS theming.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Visualization: Chart.js integration for at-a-glance stock analysis.
 
-## Code scaffolding
+A few key Learning Milestones
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 1 Migrating to PrimeNG 18 (The Aura Engine)
 
-```bash
-ng generate component component-name
-```
+- One of the biggest challenges in this project was navigating the breaking changes in the latest PrimeNG release. I moved away from legacy CSS-based layouts to a component-driven architecture using IconField and InputIcon. This required refactoring the global filter logic to work with the new design tokens rather than traditional absolute-positioning CSS classes.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 2 Real-time Data Synchronization
 
-```bash
-ng generate --help
-```
+- I implemented a reactive refresh pattern. When a product is added or a sync is triggered, the application performs an optimistic UI update followed by a verified fetch from the Supabase backend. This ensures the "Merchant" view and the "Analytics" chart are always in parity without requiring a full page reload.
 
-## Building
+## 3 Strategic UX Logic
 
-To build the project run:
+- To make the tool useful for support associates, I built in conditional formatting for inventory levels.
 
-```bash
-ng build
-```
+- Threshold Alerts: Products with stock below 5 units are automatically flagged with a danger severity tag.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Global Search: Implemented a high-speed client-side filter targeting SKU and Product Name fields to handle large datasets efficiently.
 
-## Running unit tests
+## 4 Responsive Grid Management
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- I spent significant time refining the layout to ensure the control strip (Search and Clear actions) remains on a single horizontal axis. I utilized a mix of Flexbox and fixed-width constraints to prevent "Layout Shift" on different monitor resolutions.
 
-```bash
-ng test
-```
+## How to Run Locally
 
-## Running end-to-end tests
+- Clone the repository.
 
-For end-to-end (e2e) testing, run:
+- Run npm install to pull dependencies, including the PrimeNG Aura theme and PrimeIcons.
 
-```bash
-ng e2e
-```
+- Configure your Supabase URL and Anon Key in a local environment file.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Use ng serve to launch the development server.
 
-## Additional Resources
+## Future Roadmap
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  Bulk Operations: Adding the ability to select multiple rows for batch status updates.
+
+- Export Logic: Integrating a CSV export service for merchant reporting.
+
+- Enhanced Security: Implementing Row Level Security (RLS) policies within Supabase for role-based access.
